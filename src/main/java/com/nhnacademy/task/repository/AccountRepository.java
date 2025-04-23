@@ -21,4 +21,5 @@ public interface AccountRepository extends JpaRepository<User, String> {
     @Query("UPDATE User u SET u.cud = :cud WHERE u.userId = :userId")
     void dormantUser(Cud cud, String userId);
 
+
 }

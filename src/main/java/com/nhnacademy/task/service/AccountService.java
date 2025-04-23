@@ -18,4 +18,6 @@ public interface AccountService {
 
     void dormantUser(Cud cud, String userId);
 
+    void logoutUser(String userId);
+
 }

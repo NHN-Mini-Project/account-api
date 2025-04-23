@@ -88,5 +88,17 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.dormantUser(cud, userId);
     }
 
+    @Override
+    public void logoutUser(String userId) {
+        if(Objects.isNull(userId) || userId.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+
+        if(!existsUser(userId)) {
+            throw new NotFoundUserException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
+        }
+
+    }
+
 
 }
