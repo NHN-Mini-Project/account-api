@@ -1,6 +1,7 @@
 package com.nhnacademy.task.service.impl;
 
 import com.nhnacademy.task.exception.AlreadyExistUserException;
+import com.nhnacademy.task.exception.NotFoundUserException;
 import com.nhnacademy.task.model.entity.User;
 import com.nhnacademy.task.model.request.LoginRequest;
 import com.nhnacademy.task.model.request.RegisterRequest;
@@ -33,7 +34,13 @@ public class AccountServiceImpl implements AccountService {
             throw new AlreadyExistUserException("ID 값에 해당하는 유저가 이미 존재합니다.");
         }
 
+        String userId = userRequest.getUserId();
+        String password = userRequest.getPassword();
 
+        User loginUser = accountRepository.findUserByUserIdAndPassword(userId, password);
+        if(Objects.isNull(loginUser)) {
+            throw new NotFoundUserException("ID 또는 Password가 일치하지 않습니다.");
+        }
 
     }
 
