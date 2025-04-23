@@ -75,5 +75,18 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.deleteUserByUserId(userId);
     }
 
+    @Override
+    public void dormantUser(Cud cud, String userId) {
+        if(Objects.isNull(cud) || Objects.isNull(userId) || userId.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+
+        if(!existsUser(userId)) {
+            throw new NotFoundUserException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
+        }
+
+        accountRepository.dormantUser(cud, userId);
+    }
+
 
 }

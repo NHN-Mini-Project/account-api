@@ -2,6 +2,7 @@ package com.nhnacademy.task.controller;
 
 import com.nhnacademy.task.model.request.LoginRequest;
 import com.nhnacademy.task.model.request.RegisterRequest;
+import com.nhnacademy.task.model.type.Cud;
 import com.nhnacademy.task.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,16 @@ public class AccountController {
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable String userId) {
-
+        accountService.deleteUser(userId);
 
         return ResponseEntity.ok("deleteUser");
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<String> dormantUser(@PathVariable String userId) {
+        accountService.dormantUser(Cud.DORMANT, userId);
+
+        return ResponseEntity.ok("dormantUser");
     }
 
 }
