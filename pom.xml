@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nhnacademy</groupId>
-    <artifactId>Task</artifactId>
+    <artifactId>Account</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Task</name>
-    <description>Task</description>
+    <name>Account</name>
+    <description>Account</description>
     <url/>
     <licenses>
         <license/>
