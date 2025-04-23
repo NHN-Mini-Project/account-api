@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: Task
+
+  jpa:
+    open-in-view: false # Transactional ????? ?? ?? ??

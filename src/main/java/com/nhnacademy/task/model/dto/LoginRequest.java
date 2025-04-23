@@ -1,4 +1,4 @@
-package com.nhnacademy.task.model.request;
+package com.nhnacademy.task.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

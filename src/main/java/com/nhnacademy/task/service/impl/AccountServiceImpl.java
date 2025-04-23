@@ -3,8 +3,8 @@ package com.nhnacademy.task.service.impl;
 import com.nhnacademy.task.exception.AlreadyExistUserException;
 import com.nhnacademy.task.exception.NotFoundUserException;
 import com.nhnacademy.task.model.entity.User;
-import com.nhnacademy.task.model.request.LoginRequest;
-import com.nhnacademy.task.model.request.RegisterRequest;
+import com.nhnacademy.task.model.dto.LoginRequest;
+import com.nhnacademy.task.model.dto.RegisterRequest;
 import com.nhnacademy.task.model.type.Cud;
 import com.nhnacademy.task.repository.AccountRepository;
 import com.nhnacademy.task.service.AccountService;
@@ -56,9 +56,11 @@ public class AccountServiceImpl implements AccountService {
 
         String userId = registerRequest.getUserId();
         String password = registerRequest.getPassword();
+        String email = registerRequest.getEmail();
+        String name = registerRequest.getName();
         Cud cud = registerRequest.getCud();
 
-        accountRepository.save(new User(userId, password, cud));
+        accountRepository.save(new User(userId, password, email, name, cud));
     }
 
     @Override

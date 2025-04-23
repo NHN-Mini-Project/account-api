@@ -1,10 +1,8 @@
 package com.nhnacademy.task.service;
 
-import com.nhnacademy.task.model.request.LoginRequest;
-import com.nhnacademy.task.model.request.RegisterRequest;
+import com.nhnacademy.task.model.dto.LoginRequest;
+import com.nhnacademy.task.model.dto.RegisterRequest;
 import com.nhnacademy.task.model.type.Cud;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 
 public interface AccountService {
 

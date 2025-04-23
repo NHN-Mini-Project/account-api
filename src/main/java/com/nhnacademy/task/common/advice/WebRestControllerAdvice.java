@@ -4,11 +4,11 @@ import com.nhnacademy.task.exception.AlreadyExistUserException;
 import com.nhnacademy.task.exception.NotFoundUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
-public class WebControllerAdvice {
+@RestControllerAdvice
+public class WebRestControllerAdvice {
 
     @ExceptionHandler(AlreadyExistUserException.class)
     public ResponseEntity<String> alreadyExistUserException(Exception ex) {

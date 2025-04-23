@@ -1,6 +1,6 @@
 package com.nhnacademy.task.controller;
 
-import com.nhnacademy.task.model.request.LoginRequest;
+import com.nhnacademy.task.model.dto.LoginRequest;
 import com.nhnacademy.task.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

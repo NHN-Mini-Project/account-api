@@ -1,7 +1,6 @@
 package com.nhnacademy.task.controller;
 
-import com.nhnacademy.task.model.request.LoginRequest;
-import com.nhnacademy.task.model.request.RegisterRequest;
+import com.nhnacademy.task.model.dto.RegisterRequest;
 import com.nhnacademy.task.model.type.Cud;
 import com.nhnacademy.task.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
