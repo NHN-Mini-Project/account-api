@@ -1,6 +1,6 @@
-package com.nhnacademy.common.advice;
+package com.nhnacademy.task.common.advice;
 
-import com.nhnacademy.exception.AlreadyExistUserException;
+import com.nhnacademy.task.exception.AlreadyExistUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

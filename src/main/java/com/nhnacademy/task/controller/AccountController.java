@@ -1,8 +1,6 @@
-package com.nhnacademy.controller;
+package com.nhnacademy.task.controller;
 
-import com.nhnacademy.model.request.UserRequest;
-import com.nhnacademy.repository.AccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nhnacademy.task.model.request.UserRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

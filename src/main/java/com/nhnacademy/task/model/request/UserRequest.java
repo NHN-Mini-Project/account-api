@@ -1,4 +1,4 @@
-package com.nhnacademy.model.request;
+package com.nhnacademy.task.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

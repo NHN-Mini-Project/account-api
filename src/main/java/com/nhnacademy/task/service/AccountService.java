@@ -1,4 +1,4 @@
-package com.nhnacademy.service;
+package com.nhnacademy.task.service;
 
 public interface AccountService {
 

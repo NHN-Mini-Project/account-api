@@ -1,6 +1,6 @@
-package com.nhnacademy.model.entity;
+package com.nhnacademy.task.model.entity;
 
-import com.nhnacademy.model.type.Cud;
+import com.nhnacademy.task.model.type.Cud;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

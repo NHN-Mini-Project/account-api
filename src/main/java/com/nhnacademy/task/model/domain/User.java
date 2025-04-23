@@ -1,6 +1,6 @@
-package com.nhnacademy.model.domain;
+package com.nhnacademy.task.model.domain;
 
-import com.nhnacademy.model.type.Cud;
+import com.nhnacademy.task.model.type.Cud;
 
 
 public class User {

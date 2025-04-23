@@ -1,8 +1,8 @@
-package com.nhnacademy.service.impl;
+package com.nhnacademy.task.service.impl;
 
-import com.nhnacademy.exception.AlreadyExistUserException;
-import com.nhnacademy.repository.AccountRepository;
-import com.nhnacademy.service.AccountService;
+import com.nhnacademy.task.exception.AlreadyExistUserException;
+import com.nhnacademy.task.repository.AccountRepository;
+import com.nhnacademy.task.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
