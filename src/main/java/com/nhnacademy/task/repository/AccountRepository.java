@@ -10,4 +10,8 @@ public interface AccountRepository extends JpaRepository<User, String> {
 
     User findUserByUserIdAndPassword(String userId, String password);
 
+    User findUserByUserId(String userId);
+
+    void deleteUserByUserId(String userId);
+
 }

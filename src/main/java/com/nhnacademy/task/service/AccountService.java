@@ -11,4 +11,6 @@ public interface AccountService {
 
     void registerUser(RegisterRequest registerRequest);
 
+    void deleteUser(String userId);
+
 }

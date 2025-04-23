@@ -61,5 +61,19 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(new User(userId, password, cud));
     }
 
+    @Override
+    public void deleteUser(String userId) {
+        if(Objects.isNull(userId)) {
+            throw new IllegalArgumentException();
+        }
+
+        User user = accountRepository.findUserByUserId(userId);
+        if(Objects.isNull(user)) {
+            throw new NotFoundUserException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
+        }
+
+        accountRepository.deleteUserByUserId(userId);
+    }
+
 
 }

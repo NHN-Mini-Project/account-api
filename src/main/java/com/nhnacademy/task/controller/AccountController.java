@@ -21,4 +21,11 @@ public class AccountController {
         return ResponseEntity.ok("register");
     }
 
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable String userId) {
+
+
+        return ResponseEntity.ok("deleteUser");
+    }
+
 }
