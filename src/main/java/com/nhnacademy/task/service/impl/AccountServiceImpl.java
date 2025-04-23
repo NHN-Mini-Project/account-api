@@ -60,9 +60,8 @@ public class AccountServiceImpl implements AccountService {
         String password = registerRequest.getPassword();
         String email = registerRequest.getEmail();
         String name = registerRequest.getName();
-        Cud cud = registerRequest.getCud();
 
-        accountRepository.save(new User(userId, password, email, name, cud));
+        accountRepository.save(new User(userId, password, email, name, Cud.JOIN));
     }
 
     @Override
