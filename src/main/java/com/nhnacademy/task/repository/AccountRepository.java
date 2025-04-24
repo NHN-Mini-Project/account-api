@@ -10,15 +10,16 @@ public interface AccountRepository extends JpaRepository<Member, String> {
 
     boolean existsByMemberId(String memberId);
 
-    Member findUserByMemberIdAndPassword(String memberId, String password);
+    Member findMemberByMemberIdAndPassword(String memberId, String password);
 
-    Member findUserByMemberId(String memberId);
+    Member findMemberByMemberId(String memberId);
 
-    void deleteUserByMemberId(String memberId);
+    void deleteMemberByMemberId(String memberId);
 
     @Modifying(clearAutomatically = true)
     @Query("UPDATE Member u SET u.cud = :cud WHERE u.memberId = :memberId")
     void dormantMember(Cud cud, String memberId);
 
 
+    Cud cud(Cud cud);
 }

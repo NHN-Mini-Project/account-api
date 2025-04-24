@@ -70,12 +70,12 @@ public class AccountServiceImpl implements AccountService {
             throw new IllegalArgumentException();
         }
 
-        Member member = accountRepository.findUserByMemberId(memberId);
+        Member member = accountRepository.findMemberByMemberId(memberId);
         if(Objects.isNull(member)) {
             throw new NotFoundMemberException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
         }
 
-        accountRepository.deleteUserByMemberId(memberId);
+        accountRepository.deleteMemberByMemberId(memberId);
     }
 
     @Override

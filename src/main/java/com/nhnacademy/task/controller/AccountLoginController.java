@@ -2,7 +2,6 @@ package com.nhnacademy.task.controller;
 
 import com.nhnacademy.task.model.dto.LoginRequest;
 import com.nhnacademy.task.model.dto.LoginResponseDto;
-import com.nhnacademy.task.model.dto.ResponseDto;
 import com.nhnacademy.task.model.entity.Member;
 import com.nhnacademy.task.repository.AccountRepository;
 import com.nhnacademy.task.service.AccountService;
@@ -25,7 +24,7 @@ public class AccountLoginController {
         accountService.loginMember(memberRequest);
 
         String memberId = memberRequest.getMemberId();
-        Member member = accountRepository.findUserByMemberId(memberId);
+        Member member = accountRepository.findMemberByMemberId(memberId);
 
         LoginResponseDto loginResponseDto = new LoginResponseDto(member.getMemberId(), member.getPassword());
 

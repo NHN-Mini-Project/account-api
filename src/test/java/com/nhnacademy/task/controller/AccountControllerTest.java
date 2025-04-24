@@ -1,6 +1,8 @@
 package com.nhnacademy.task.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nhnacademy.task.exception.AlreadyExistMemberException;
+import com.nhnacademy.task.exception.NotFoundMemberException;
 import com.nhnacademy.task.model.dto.RegisterRequest;
 import com.nhnacademy.task.model.type.Cud;
 import com.nhnacademy.task.service.AccountService;
@@ -11,7 +13,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -57,7 +61,24 @@ public class AccountControllerTest {
     }
 
     @Test
-    void deleteUser() throws Exception{
+    void register_alreadyExist() throws Exception {
+        RegisterRequest registerRequest = new RegisterRequest("member", "password", "email@example.com", "이름", null);
+
+        doThrow(new AlreadyExistMemberException("이미 존재하는 회원입니다."))
+                .when(accountService).registerMember(any(RegisterRequest.class));
+
+        mockMvc.perform(post("/account/member")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(registerRequest)))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").value("이미 존재하는 회원입니다."));
+
+
+    }
+
+    @Test
+    void deleteMember() throws Exception{
         String memberId = "member";
 
         doNothing().when(accountService).deleteMember(memberId);
@@ -69,9 +90,22 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.message").value("멤버 삭제"));
     }
 
+    @Test
+    void deleteMember_notFound() throws Exception {
+        String memberId = "notFound";
+
+        doThrow(new NotFoundMemberException("존재하지 않는 회원입니다."))
+                .when(accountService).deleteMember(memberId);
+
+        mockMvc.perform(delete("/account/member/{memberId}",memberId))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").value("존재하지 않는 회원입니다."));
+    }
+
 
     @Test
-    void dormantUser() throws Exception{
+    void dormantMember() throws Exception{
         String memberId = "member";
 
         doNothing().when(accountService).dormantMember(Cud.DORMANT, memberId);
