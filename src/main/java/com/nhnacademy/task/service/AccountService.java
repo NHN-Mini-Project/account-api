@@ -6,16 +6,16 @@ import com.nhnacademy.task.model.type.Cud;
 
 public interface AccountService {
 
-    boolean existsUser(String userId);
+    boolean existsMember(String memberId);
 
-    void loginUser(LoginRequest userRequest);
+    void loginMember(LoginRequest userRequest);
 
-    void registerUser(RegisterRequest registerRequest);
+    void registerMember(RegisterRequest registerRequest);
 
-    void deleteUser(String userId);
+    void deleteMember(String memberId);
 
-    void dormantUser(Cud cud, String userId);
+    void dormantMember(Cud cud, String memberId);
 
-    void logoutUser(String userId);
+    void logoutMember(String memberId);
 
 }

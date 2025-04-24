@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Entity
-public class User {
+public class Member {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "member_id")
+    private String memberId;
 
     @NotNull
     private String password;

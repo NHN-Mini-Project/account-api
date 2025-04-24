@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResponseDto {
 
-    private String userId;
+    private String memberId;
     private String message;
 
 }

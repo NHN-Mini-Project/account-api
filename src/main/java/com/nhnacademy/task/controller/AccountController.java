@@ -4,13 +4,15 @@ import com.nhnacademy.task.model.dto.RegisterRequest;
 import com.nhnacademy.task.model.dto.ResponseDto;
 import com.nhnacademy.task.model.type.Cud;
 import com.nhnacademy.task.service.AccountService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
-@RequestMapping("/account/user")
+@RequestMapping("/account/member")
 public class AccountController {
 
     @Autowired
@@ -18,27 +20,29 @@ public class AccountController {
 
     @PostMapping
     public ResponseEntity<ResponseDto> register(@RequestBody RegisterRequest registerRequest) {
-        accountService.registerUser(registerRequest);
+        log.info(registerRequest.getMemberId());
 
-        ResponseDto registerResponseDto = new ResponseDto(registerRequest.getUserId(), "회원가입 성공");
+        accountService.registerMember(registerRequest);
+
+        ResponseDto registerResponseDto = new ResponseDto(registerRequest.getMemberId(), "회원가입 성공");
 
         return ResponseEntity.status(HttpStatus.CREATED).body(registerResponseDto);
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<ResponseDto> deleteUser(@PathVariable String userId) {
-        accountService.deleteUser(userId);
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<ResponseDto> deleteUser(@PathVariable String memberId) {
+        accountService.deleteMember(memberId);
 
-        ResponseDto deleteResponseDto = new ResponseDto(userId, "유저 삭제");
+        ResponseDto deleteResponseDto = new ResponseDto(memberId, "유저 삭제");
 
         return ResponseEntity.status(HttpStatus.CREATED).body(deleteResponseDto);
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<ResponseDto> dormantUser(@PathVariable String userId) {
-        accountService.dormantUser(Cud.DORMANT, userId);
+    @PutMapping("/{memberId}")
+    public ResponseEntity<ResponseDto> dormantUser(@PathVariable String memberId) {
+        accountService.dormantMember(Cud.DORMANT, memberId);
 
-        ResponseDto cudResponseDto = new ResponseDto(userId, "유저 상태");
+        ResponseDto cudResponseDto = new ResponseDto(memberId, "유저 상태");
 
         return ResponseEntity.status(HttpStatus.CREATED).body(cudResponseDto);
     }

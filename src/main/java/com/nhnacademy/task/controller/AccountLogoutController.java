@@ -15,11 +15,11 @@ public class AccountLogoutController {
     @Autowired
     private AccountService accountService;
 
-    @PostMapping("/account/logout/{userId}")
-    public ResponseEntity<ResponseDto> logout(@PathVariable String userId) {
-        accountService.logoutUser(userId);
+    @PostMapping("/account/logout/{memberId}")
+    public ResponseEntity<ResponseDto> logout(@PathVariable String memberId) {
+        accountService.logoutMember(memberId);
 
-        ResponseDto logoutResponseDto = new ResponseDto(userId, "로그아웃 성공");
+        ResponseDto logoutResponseDto = new ResponseDto(memberId, "로그아웃 성공");
 
         return ResponseEntity.status(HttpStatus.CREATED).body(logoutResponseDto);
     }
