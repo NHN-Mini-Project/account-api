@@ -31,7 +31,7 @@ public class AccountLoginControllerTest {
     void login() throws Exception{
         LoginRequest loginRequest = new LoginRequest("user", "password");
 
-        doNothing().when(accountService).loginUser(loginRequest);
+        doNothing().when(accountService).loginMember(loginRequest);
 
         mockMvc.perform(post("/account/login")
                 .contentType(MediaType.APPLICATION_JSON)

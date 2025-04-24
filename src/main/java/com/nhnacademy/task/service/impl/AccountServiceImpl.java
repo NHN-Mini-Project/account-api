@@ -1,8 +1,8 @@
 package com.nhnacademy.task.service.impl;
 
-import com.nhnacademy.task.exception.AlreadyExistUserException;
-import com.nhnacademy.task.exception.NotFoundUserException;
-import com.nhnacademy.task.model.entity.User;
+import com.nhnacademy.task.exception.AlreadyExistMemberException;
+import com.nhnacademy.task.exception.NotFoundMemberException;
+import com.nhnacademy.task.model.entity.Member;
 import com.nhnacademy.task.model.dto.LoginRequest;
 import com.nhnacademy.task.model.dto.RegisterRequest;
 import com.nhnacademy.task.model.type.Cud;
@@ -22,83 +22,83 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
 
     @Override
-    public boolean existsUser(String userId) {
-        return accountRepository.existsByUserId(userId);
+    public boolean existsMember(String memberId) {
+        return accountRepository.existsByMemberId(memberId);
     }
 
     @Override
-    public void loginUser(LoginRequest userRequest) {
-        if(Objects.isNull(userRequest) || Objects.isNull(userRequest.getUserId()) || userRequest.getUserId().isEmpty() || Objects.isNull(userRequest.getPassword()) || userRequest.getPassword().isEmpty()) {
+    public void loginMember(LoginRequest memberRequest) {
+        if(Objects.isNull(memberRequest) || Objects.isNull(memberRequest.getMemberId()) || memberRequest.getMemberId().isEmpty() || Objects.isNull(memberRequest.getPassword()) || memberRequest.getPassword().isEmpty()) {
             throw new IllegalArgumentException();
         }
 
-        if(!existsUser(userRequest.getUserId())) {
-            throw new AlreadyExistUserException("ID 값에 해당하는 유저가 이미 존재합니다.");
+        if(!existsMember(memberRequest.getMemberId())) {
+            throw new AlreadyExistMemberException("ID 값에 해당하는 유저가 이미 존재합니다.");
         }
 
-        String userId = userRequest.getUserId();
-        String password = userRequest.getPassword();
+        String memberId = memberRequest.getMemberId();
+        String password = memberRequest.getPassword();
 
-        User loginUser = accountRepository.findUserByUserIdAndPassword(userId, password);
-        if(Objects.isNull(loginUser)) {
-            throw new NotFoundUserException("ID 또는 Password가 일치하지 않습니다.");
+        Member loginMember = accountRepository.findUserByMemberIdAndPassword(memberId, password);
+        if(Objects.isNull(loginMember)) {
+            throw new NotFoundMemberException("ID 또는 Password가 일치하지 않습니다.");
         }
 
     }
 
     @Override
-    public void registerUser(RegisterRequest registerRequest) {
-        if(Objects.isNull(registerRequest) || Objects.isNull(registerRequest.getUserId()) || registerRequest.getUserId().isEmpty() || Objects.isNull(registerRequest.getPassword()) || registerRequest.getPassword().isEmpty()) {
+    public void registerMember(RegisterRequest registerRequest) {
+        if(Objects.isNull(registerRequest) || Objects.isNull(registerRequest.getMemberId()) || registerRequest.getMemberId().isEmpty() || Objects.isNull(registerRequest.getPassword()) || registerRequest.getPassword().isEmpty()) {
             throw new IllegalArgumentException();
         }
 
-        if(existsUser(registerRequest.getUserId())) {
-            throw new AlreadyExistUserException("ID 값에 해당하는 유저가 이미 존재합니다.");
+        if(existsMember(registerRequest.getMemberId())) {
+            throw new AlreadyExistMemberException("ID 값에 해당하는 유저가 이미 존재합니다.");
         }
 
-        String userId = registerRequest.getUserId();
+        String memberId = registerRequest.getMemberId();
         String password = registerRequest.getPassword();
         String email = registerRequest.getEmail();
         String name = registerRequest.getName();
 
-        accountRepository.save(new User(userId, password, email, name, Cud.JOIN));
+        accountRepository.save(new Member(memberId, password, email, name, Cud.JOIN));
     }
 
     @Override
-    public void deleteUser(String userId) {
-        if(Objects.isNull(userId)) {
+    public void deleteMember(String memberId) {
+        if(Objects.isNull(memberId)) {
             throw new IllegalArgumentException();
         }
 
-        User user = accountRepository.findUserByUserId(userId);
-        if(Objects.isNull(user)) {
-            throw new NotFoundUserException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
+        Member member = accountRepository.findUserByMemberId(memberId);
+        if(Objects.isNull(member)) {
+            throw new NotFoundMemberException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
         }
 
-        accountRepository.deleteUserByUserId(userId);
+        accountRepository.deleteUserByMemberId(memberId);
     }
 
     @Override
-    public void dormantUser(Cud cud, String userId) {
-        if(Objects.isNull(cud) || Objects.isNull(userId) || userId.isEmpty()) {
+    public void dormantMember(Cud cud, String memberId) {
+        if(Objects.isNull(cud) || Objects.isNull(memberId) || memberId.isEmpty()) {
             throw new IllegalArgumentException();
         }
 
-        if(!existsUser(userId)) {
-            throw new NotFoundUserException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
+        if(!existsMember(memberId)) {
+            throw new NotFoundMemberException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
         }
 
-        accountRepository.dormantUser(cud, userId);
+        accountRepository.dormantMember(cud, memberId);
     }
 
     @Override
-    public void logoutUser(String userId) {
-        if(Objects.isNull(userId) || userId.isEmpty()) {
+    public void logoutMember(String memberId) {
+        if(Objects.isNull(memberId) || memberId.isEmpty()) {
             throw new IllegalArgumentException();
         }
 
-        if(!existsUser(userId)) {
-            throw new NotFoundUserException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
+        if(!existsMember(memberId)) {
+            throw new NotFoundMemberException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
         }
 
     }

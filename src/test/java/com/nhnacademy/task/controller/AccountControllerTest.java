@@ -32,7 +32,7 @@ public class AccountControllerTest {
     void register_success() throws Exception {
         RegisterRequest registerRequest = new RegisterRequest("user", "password", "user@example.com", "이름", null);
 
-        doNothing().when(accountService).registerUser(registerRequest);
+        doNothing().when(accountService).registerMember(registerRequest);
 
         mockMvc.perform(post("/account/user")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -57,7 +57,7 @@ public class AccountControllerTest {
     void deleteUser() throws Exception{
         String userId = "user";
 
-        doNothing().when(accountService).deleteUser(userId);
+        doNothing().when(accountService).deleteMember();
 
         mockMvc.perform(delete("/account/user/{userId}",userId))
                 .andExpect(status().isNoContent());
@@ -68,7 +68,7 @@ public class AccountControllerTest {
     void dormantUser() throws Exception{
         String userId = "user";
 
-        doNothing().when(accountService).dormantUser(Cud.DORMANT, userId);
+        doNothing().when(accountService).dormantMember(Cud.DORMANT, userId);
 
         mockMvc.perform(
                 put("/account/user/{userId}", userId)
