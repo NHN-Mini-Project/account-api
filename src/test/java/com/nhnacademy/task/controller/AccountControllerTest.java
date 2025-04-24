@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,15 +31,16 @@ public class AccountControllerTest {
 
     @Test
     void register_success() throws Exception {
-        RegisterRequest registerRequest = new RegisterRequest("user", "password", "user@example.com", "이름", null);
+        RegisterRequest registerRequest = new RegisterRequest("member", "password", "member@example.com", "이름", null);
 
         doNothing().when(accountService).registerMember(registerRequest);
 
-        mockMvc.perform(post("/account/user")
+        mockMvc.perform(post("/account/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(registerRequest)))
+                .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.userId").value("user"))
+                .andExpect(jsonPath("$.memberId").value("member"))
                 .andExpect(jsonPath("$.message").value("회원가입 성공"));
 
     }
@@ -47,34 +49,39 @@ public class AccountControllerTest {
     void register_fail() throws Exception {
         RegisterRequest registerRequest = new RegisterRequest(null, "password", "email@example.com", "이름", null);
 
-        mockMvc.perform(post("/account/user")
+        mockMvc.perform(post("/account/member")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(registerRequest)))
+                .andDo(print())
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     void deleteUser() throws Exception{
-        String userId = "user";
+        String memberId = "member";
 
-        doNothing().when(accountService).deleteMember();
+        doNothing().when(accountService).deleteMember(memberId);
 
-        mockMvc.perform(delete("/account/user/{userId}",userId))
-                .andExpect(status().isNoContent());
+        mockMvc.perform(delete("/account/member/{memberId}",memberId))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.memberId").value("member"))
+                .andExpect(jsonPath("$.message").value("멤버 삭제"));
     }
 
 
     @Test
     void dormantUser() throws Exception{
-        String userId = "user";
+        String memberId = "member";
 
-        doNothing().when(accountService).dormantMember(Cud.DORMANT, userId);
+        doNothing().when(accountService).dormantMember(Cud.DORMANT, memberId);
 
         mockMvc.perform(
-                put("/account/user/{userId}", userId)
+                put("/account/member/{memberId}", memberId)
                 .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.userId").value("user"))
-                .andExpect(jsonPath("$.message").value("유저 상태"));
+                .andExpect(jsonPath("$.memberId").value("member"))
+                .andExpect(jsonPath("$.message").value("멤버 상태"));
     }
 }

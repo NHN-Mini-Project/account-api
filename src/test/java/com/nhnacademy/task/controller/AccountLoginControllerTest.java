@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AccountLoginController.class)
@@ -29,14 +31,17 @@ public class AccountLoginControllerTest {
 
     @Test
     void login() throws Exception{
-        LoginRequest loginRequest = new LoginRequest("user", "password");
+        LoginRequest loginRequest = new LoginRequest("member", "password");
 
         doNothing().when(accountService).loginMember(loginRequest);
 
         mockMvc.perform(post("/account/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(loginRequest)))
-                .andExpect(status().)
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.memberId").value("member"))
+                .andExpect(jsonPath("$.message").value("로그인 성공"));
 
     }
 }
