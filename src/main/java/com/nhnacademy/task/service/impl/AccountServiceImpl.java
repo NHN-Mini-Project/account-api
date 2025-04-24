@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
@@ -28,21 +28,21 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void loginMember(LoginRequest memberRequest) {
-        if(Objects.isNull(memberRequest) || Objects.isNull(memberRequest.getMemberId()) || memberRequest.getMemberId().isEmpty() || Objects.isNull(memberRequest.getPassword()) || memberRequest.getPassword().isEmpty()) {
+        if(Objects.isNull(memberRequest) || Objects.isNull(memberRequest.getMemberId()) || memberRequest.getMemberId().isEmpty()) {
             throw new IllegalArgumentException();
         }
 
         if(!existsMember(memberRequest.getMemberId())) {
-            throw new AlreadyExistMemberException("ID 값에 해당하는 유저가 이미 존재합니다.");
+            throw new AlreadyExistMemberException("ID 값에 해당하는 유저가 존재하지 않습니다.");
         }
 
-        String memberId = memberRequest.getMemberId();
-        String password = memberRequest.getPassword();
-
-        Member loginMember = accountRepository.findUserByMemberIdAndPassword(memberId, password);
-        if(Objects.isNull(loginMember)) {
-            throw new NotFoundMemberException("ID 또는 Password가 일치하지 않습니다.");
-        }
+//        String memberId = memberRequest.getMemberId();
+//        String password = memberRequest.getPassword();
+//
+//        Member loginMember = accountRepository.findUserByMemberIdAndPassword(memberId, password);
+//        if(Objects.isNull(loginMember)) {
+//            throw new NotFoundMemberException("ID 또는 Password가 일치하지 않습니다.");
+//        }
 
     }
 
