@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Entity
+@Table(name = "member")
 public class Member {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "member_id")
     private String memberId;
@@ -29,7 +29,8 @@ public class Member {
 
     @NotNull
     private String name;
-    
+
+    @Enumerated(EnumType.STRING)
     private Cud cud;
 
 }
