@@ -31,7 +31,7 @@ public class AccountLoginControllerTest {
 
     @Test
     void login() throws Exception{
-        LoginRequest loginRequest = new LoginRequest("member", "password");
+        LoginRequest loginRequest = new LoginRequest("member");
 
         doNothing().when(accountService).loginMember(loginRequest);
 
