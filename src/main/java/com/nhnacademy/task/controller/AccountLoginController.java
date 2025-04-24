@@ -1,7 +1,10 @@
 package com.nhnacademy.task.controller;
 
 import com.nhnacademy.task.model.dto.LoginRequest;
+import com.nhnacademy.task.model.dto.LoginResponseDto;
 import com.nhnacademy.task.model.dto.ResponseDto;
+import com.nhnacademy.task.model.entity.Member;
+import com.nhnacademy.task.repository.AccountRepository;
 import com.nhnacademy.task.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +17,17 @@ public class AccountLoginController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
     @PostMapping("/account/login")
-    public ResponseEntity<ResponseDto> login(@RequestBody LoginRequest memberRequest) {
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequest memberRequest) {
         accountService.loginMember(memberRequest);
 
-        ResponseDto loginResponseDto = new ResponseDto(memberRequest.getMemberId(), "로그인 성공");
+        String memberId = memberRequest.getMemberId();
+        Member member = accountRepository.findUserByMemberId(memberId);
+
+        LoginResponseDto loginResponseDto = new LoginResponseDto(member.getMemberId(), member.getPassword());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseDto);
     }
