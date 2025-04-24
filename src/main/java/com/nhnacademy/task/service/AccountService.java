@@ -18,4 +18,6 @@ public interface AccountService {
 
     void logoutMember(String memberId);
 
+    String getNameMember(String memberId);
+
 }

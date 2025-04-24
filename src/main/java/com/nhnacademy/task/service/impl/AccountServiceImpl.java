@@ -36,14 +36,6 @@ public class AccountServiceImpl implements AccountService {
             throw new AlreadyExistMemberException("ID 값에 해당하는 유저가 존재하지 않습니다.");
         }
 
-//        String memberId = memberRequest.getMemberId();
-//        String password = memberRequest.getPassword();
-//
-//        Member loginMember = accountRepository.findUserByMemberIdAndPassword(memberId, password);
-//        if(Objects.isNull(loginMember)) {
-//            throw new NotFoundMemberException("ID 또는 Password가 일치하지 않습니다.");
-//        }
-
     }
 
     @Override
@@ -101,6 +93,17 @@ public class AccountServiceImpl implements AccountService {
             throw new NotFoundMemberException("ID 값에 해당하는 유저를 찾을 수 없습니다.");
         }
 
+    }
+
+    @Override
+    public String getNameMember(String memberId) {
+        if(Objects.isNull(memberId)) {
+            throw new IllegalArgumentException();
+        }
+
+        Member member = accountRepository.findMemberByMemberId(memberId);
+
+        return member.getName();
     }
 
 
