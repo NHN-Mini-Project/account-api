@@ -1,6 +1,22 @@
+server:
+  port: 9090
+
 spring:
   application:
     name: Task
 
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+
   jpa:
-    open-in-view: false # Transactional ????? ?? ?? ??
+    open-in-view: false # Transactional auto false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
