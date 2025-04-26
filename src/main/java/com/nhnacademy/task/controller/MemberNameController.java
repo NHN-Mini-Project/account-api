@@ -5,13 +5,12 @@ import com.nhnacademy.task.model.dto.ResponseUserNameDto;
 import com.nhnacademy.task.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserNameController {
+public class MemberNameController {
 
     @Autowired
     private AccountService accountService;

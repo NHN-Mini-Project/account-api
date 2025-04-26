@@ -21,5 +21,4 @@ public interface AccountRepository extends JpaRepository<Member, String> {
     void dormantMember(Cud cud, String memberId);
 
 
-    Cud cud(Cud cud);
 }

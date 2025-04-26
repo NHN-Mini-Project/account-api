@@ -20,4 +20,6 @@ public interface AccountService {
 
     String getNameMember(String memberId);
 
+    void updateMemberStatus(String memberId, Cud cud);
+
 }

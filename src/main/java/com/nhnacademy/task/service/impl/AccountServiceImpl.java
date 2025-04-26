@@ -106,5 +106,14 @@ public class AccountServiceImpl implements AccountService {
         return member.getName();
     }
 
+    @Override
+    public void updateMemberStatus(String memberId, Cud cud) {
+        if(Objects.isNull(memberId) || Objects.isNull(cud)) {
+            throw new IllegalArgumentException();
+        }
+
+        accountRepository.dormantMember(cud, memberId);
+    }
+
 
 }

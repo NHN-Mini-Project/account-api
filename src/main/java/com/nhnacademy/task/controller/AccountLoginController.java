@@ -3,6 +3,7 @@ package com.nhnacademy.task.controller;
 import com.nhnacademy.task.model.dto.LoginRequest;
 import com.nhnacademy.task.model.dto.LoginResponseDto;
 import com.nhnacademy.task.model.entity.Member;
+import com.nhnacademy.task.model.type.Cud;
 import com.nhnacademy.task.repository.AccountRepository;
 import com.nhnacademy.task.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class AccountLoginController {
 
         String memberId = memberRequest.getMemberId();
         Member member = accountRepository.findMemberByMemberId(memberId);
+        if(member.getCud() == Cud.DORMANT) {
+            accountService.updateMemberStatus(memberId, Cud.JOIN);
+        }
 
         LoginResponseDto loginResponseDto = new LoginResponseDto(member.getMemberId(), member.getPassword());
 
