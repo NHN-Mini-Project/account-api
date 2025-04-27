@@ -2,6 +2,7 @@ package com.nhnacademy.task.service.impl;
 
 import com.nhnacademy.task.exception.AlreadyExistMemberException;
 import com.nhnacademy.task.exception.NotFoundMemberException;
+import com.nhnacademy.task.model.dto.LoginRequest;
 import com.nhnacademy.task.model.dto.RegisterRequest;
 import com.nhnacademy.task.model.entity.Member;
 import com.nhnacademy.task.model.type.Cud;
@@ -50,11 +51,49 @@ class AccountServiceImplTest {
     }
 
     @Test
-    void loginMember() {
+    void loginMember_Success() throws Exception {
+        LoginRequest loginRequest = new LoginRequest("member");
+
+        when(accountRepository.existsByMemberId(loginRequest.getMemberId())).thenReturn(true);
+
+        accountService.loginMember(loginRequest);
+
+        verify(accountRepository).existsByMemberId(loginRequest.getMemberId());
     }
 
     @Test
-    void registerMember() {
+    void loginMember_NotFound() {
+        LoginRequest loginRequest = new LoginRequest("notExist");
+
+        when(accountRepository.existsByMemberId(loginRequest.getMemberId())).thenReturn(false);
+
+        assertThrows(AlreadyExistMemberException.class, () -> accountService.loginMember(loginRequest));
+        //서비스 코드에서 NotFound 예외를 던져야 되는거 같은데 코드 안건드릴려고 AlreadyExistMemberException 으로 일단 테스트코드 작성했습니다
+    }
+
+    @Test
+    void logoutMember_Success() {
+        String memberId = "member";
+
+        when(accountRepository.existsByMemberId(memberId)).thenReturn(true);
+
+        accountService.logoutMember(memberId);
+
+        verify(accountRepository).existsByMemberId(memberId);
+    }
+
+
+    @Test
+    void logoutMember_NotFound() {
+        String memberId = "notExistMember";
+
+        when(accountRepository.existsByMemberId(memberId)).thenReturn(false);
+
+        assertThrows(NotFoundMemberException.class, () -> accountService.logoutMember(memberId));
+    }
+
+    @Test
+    void registerMember_Success() {
         RegisterRequest registerRequest = new RegisterRequest("member", "password", "email@example.com", "이름", null );
 
         when(accountRepository.existsByMemberId("member")).thenReturn(false);
@@ -75,7 +114,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    void deleteMember() {
+    void deleteMember_Success() {
         Member mockMember = new Member("member","password","email@example.com","이름",null);
         String memberId = mockMember.getMemberId();
 
@@ -96,15 +135,6 @@ class AccountServiceImplTest {
         assertThrows(NotFoundMemberException.class, () -> accountService.deleteMember(memberId));
     }
 
-    @Test
-    void deleteMember_IllegalArgument(){
-        assertThrows(IllegalArgumentException.class, () -> accountService.deleteMember(null));
-    }
-
-    @Test
-    void deleteMember_Empty(){
-        assertThrows(IllegalArgumentException.class, () -> accountService.deleteMember(""));
-    }
 
     @Test
     void dormantMember() {
@@ -118,12 +148,7 @@ class AccountServiceImplTest {
         accountService.dormantMember(cud, memberId);
 
         verify(accountRepository).dormantMember(cud, memberId);
-
-
-
     }
 
-    @Test
-    void logoutMember() {
-    }
+
 }

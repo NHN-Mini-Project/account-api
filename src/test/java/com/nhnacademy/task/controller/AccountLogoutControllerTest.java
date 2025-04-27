@@ -28,7 +28,7 @@ public class AccountLogoutControllerTest {
     AccountService accountService;
 
     @Test
-    void logout() throws Exception {
+    void logout_success() throws Exception {
         String memberId = "member";
 
         doNothing().when(accountService).logoutMember(memberId);

@@ -78,7 +78,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    void deleteMember() throws Exception{
+    void deleteMember_success() throws Exception{
         String memberId = "member";
 
         doNothing().when(accountService).deleteMember(memberId);
@@ -105,7 +105,7 @@ public class AccountControllerTest {
 
 
     @Test
-    void dormantMember() throws Exception{
+    void dormantMember_success() throws Exception{
         String memberId = "member";
 
         doNothing().when(accountService).dormantMember(Cud.DORMANT, memberId);
