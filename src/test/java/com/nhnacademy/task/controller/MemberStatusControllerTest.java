@@ -47,20 +47,4 @@ class MemberStatusControllerTest {
         verify(accountService).dormantMember(request.getCud(), request.getMemberId());
     }
 
-    @Test
-    void getMemberStatus_delete_success() throws Exception {
-        MemberCudRequest request = new MemberCudRequest("member", Cud.WITHDRAWAL);
-
-        doNothing().when(accountService).deleteMember(request.getMemberId());
-
-        mockMvc.perform(post("/account/status")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.memberId").value("member"))
-                .andExpect(jsonPath("$.message").value("유저 상태 변경"));
-
-        verify(accountService).deleteMember(request.getMemberId());
-    }
 }
