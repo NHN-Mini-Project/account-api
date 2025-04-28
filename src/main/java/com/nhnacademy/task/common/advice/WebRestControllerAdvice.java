@@ -2,6 +2,7 @@ package com.nhnacademy.task.common.advice;
 
 import com.nhnacademy.task.exception.AlreadyExistMemberException;
 import com.nhnacademy.task.exception.NotFoundMemberException;
+import com.nhnacademy.task.exception.WithdrawalMemberException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -28,6 +29,11 @@ public class WebRestControllerAdvice {
                 errorMessage.append(error.getDefaultMessage()).append(" ")
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage.toString());
+    }
+
+    @ExceptionHandler(WithdrawalMemberException.class)
+    public ResponseEntity<String> withdrawalMemberException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(ex.getMessage());
     }
 
 
